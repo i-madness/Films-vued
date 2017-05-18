@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <nav>
+      <router-link to="/">Main</router-link>
+      <router-link to="/other">othr</router-link>
+    </nav>
     <router-view></router-view>
   </div>
 </template>
@@ -18,6 +21,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+body, html {
+  height: 100vh;
+  margin: 0;
 }
 </style>
