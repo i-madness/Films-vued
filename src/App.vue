@@ -4,7 +4,9 @@
       <router-link to="/">Main</router-link>
       <router-link to="/other">othr</router-link>
     </nav>
-    <router-view></router-view>
+    <div class="main-container">
+      <router-view></router-view>
+    </div>    
   </div>
 </template>
 
@@ -27,4 +29,9 @@ body, html {
   height: 100vh;
   margin: 0;
 }
+
+.main-container {
+
+}
+
 </style>

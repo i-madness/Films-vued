@@ -1,10 +1,13 @@
 <template>
   <div>
-    <h1>Введите название сериала</h1> <!-- на будущее -->
-    <input/> <!--  v-model="wussh[0].title" -->
-    <ul>
-      <li v-for="w in wussh">{{ w.title }} | {{ w.seasons.length }}</li>
-    </ul>
+    <h1>Введите название сериала</h1>
+      <div class="input-wrapper">
+        <input id="inp" v-model="searchString" @change="onSearchChg"/>
+      </div>
+      <div class="results">
+        <div class="result" v-for="res in searchResults">{{ res.title_rus }}</div>
+
+      </div>
   </div>
 </template>
 
@@ -16,38 +19,64 @@ export default {
   name: 'main',
   data () {
     return {
-      wussh: [],
-      msg: 'Meeeh?'
+      msg: 'Meeeh?',
+      searchString: '',
+      searchResults: []
     }
   },
 
-  created() {
-      ApiService.fetchShowList(this.$http, 1)
+  
+
+  methods: {     
+    onSearchChg(event) {
+      let {value} = event.target
+      ApiService.findShow(this.$http, value)
+        .then(filteredData => this.searchResults = filteredData)
+    },
+    
+  },
+
+  created () {
+      /*ApiService.fetchShowList(this.$http, 1)
         .then(response => {
           this.wussh = response.data
           console.log(response.data)
           window.res = response.data
-        })
+        })*/
   }
 }
 </script>
 
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.input-wrapper {
+  width: 100%;
+  text-align: center;
 }
-
-ul {
-  list-style-type: none;
-  padding: 0;
+.results {
 }
-
-li {
-  display: inline-block;
-  margin: 0 10px;
+.result {
+  color: #3a3946;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-top: none;
+  background-color: #e8e8e8;
+  font-size: 15pt;
 }
-
-a {
-  color: #42b983;
+.result:hover {
+  color: #fff;
+  text-shadow: 2px 2px 2px #3a3946;
+  background-color: #94d09e;
+  
+}
+#inp {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px 6px 0 0;
+  padding: 15pt;
+  font-size: 30pt;
+  width: 100%
+}
+.res-last {
+  border-radius: 0 0 6px 6px;
 }
 </style>
