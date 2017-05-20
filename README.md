@@ -1,27 +1,6 @@
-# films-vued
+# Education projects
+Этот репозиторий предназначен для маленьких несущественных проектов, в основном предназначенных для изучения чего-либо.
 
-> A simple vue app that allows to make list of watched films/shows
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Список проектов:
+- **Shows VUEd** - проект для изучения frontend-фреймворка Vue.js. Изначальная задумка - сделать мини-сервис, на котором можно будет отмечать просмотренные сериалы и делиться этим с друзьями (Twitter и прочие соцсети).
+- _Something JSF-related_ - coming soon в не очень обозримом будущем.
