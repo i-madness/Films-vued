@@ -2,10 +2,13 @@
   <div>
     <h1>Введите название сериала</h1>
       <div class="input-wrapper">
-        <input id="inp" v-model="searchString" @change="onSearchChg"/>
+        <input id="inp" v-model="searchString" @keyup="onSearchChg"/>
       </div>
       <div class="results">
-        <div class="result" v-for="res in searchResults">{{ res.title_rus }}</div>
+        <div class="result" v-for="res in searchResults">
+          <img :src="res.pic" style="float: left">
+          {{ res.title_rus }}
+        </div>
 
       </div>
   </div>
@@ -14,6 +17,9 @@
 <script>
 import VueResource from 'vue-resource'
 import ApiService from '../api.service'
+import { debounce } from 'lodash'
+
+const debouncedFindShow = debounce(ApiService.findShow, 300)
 
 export default {
   name: 'main',
@@ -25,24 +31,13 @@ export default {
     }
   },
 
-  
-
   methods: {     
     onSearchChg(event) {
       let {value} = event.target
-      ApiService.findShow(this.$http, value)
+      debouncedFindShow(this.$http, value)
         .then(filteredData => this.searchResults = filteredData)
     },
     
-  },
-
-  created () {
-      /*ApiService.fetchShowList(this.$http, 1)
-        .then(response => {
-          this.wussh = response.data
-          console.log(response.data)
-          window.res = response.data
-        })*/
   }
 }
 </script>
@@ -62,6 +57,7 @@ export default {
   border-top: none;
   background-color: #e8e8e8;
   font-size: 15pt;
+  vertical-align: middle;
 }
 .result:hover {
   color: #fff;
