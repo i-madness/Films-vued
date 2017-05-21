@@ -26,7 +26,6 @@ export default {
   name: 'main',
   data () {
     return {
-      msg: 'Meeeh?',
       searchString: '',
       searchResults: []
     }
@@ -52,6 +51,7 @@ export default {
   }
 
   .results {
+    width: 100%;
   }
 
   .result {

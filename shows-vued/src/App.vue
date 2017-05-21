@@ -17,23 +17,23 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  padding: 20px;
-  width: 100vh;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    padding-right: 30px;
+  }
 
-body, html {
-  height: 100vh;
-  margin: 0;
-}
+  body, html {
+    height: 100vh;
+    margin: 0;
+    padding: 0 30px;
+  }
 
-.main-container {
-
-}
+  .main-container {
+    padding: 30px;
+  }
 
 </style>
