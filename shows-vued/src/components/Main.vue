@@ -5,11 +5,11 @@
         <input id="inp" v-model="searchString" @keyup="onSearchChg"/>
       </div>
       <div class="results">
-        <div class="result" v-for="(res,index) in searchResults" 
-            :class="(index === searchResults.length - 1) ? 'res-last' : ''">
-          <img :src="res.pic" style="float: left">
-          {{ res.title_rus }}
-        </div>
+        <router-link :to="res.route" tag="div" class="result" v-for="(res,index) in searchResults" 
+            :class="(index === searchResults.length - 1) ? 'res-last' : ''" :key="index">           
+            <img :src="res.pic" style="float: left">
+            {{ res.title_rus }}     
+        </router-link>
 
       </div>
   </div>
@@ -36,9 +36,11 @@ export default {
       let {value} = event.target
       !!debouncedFindShow &&
         debouncedFindShow(this.$http, value)
-          .then(filteredData => this.searchResults = filteredData)
-    },
-    
+          .then(filteredData => {
+            this.searchResults = filteredData
+            this.searchResults.forEach(result => result['route'] = '/show/' + result.title)
+          })
+    }
   }
 }
 </script>
@@ -63,13 +65,13 @@ export default {
     background-color: #e8e8e8;
     font-size: 15pt;
     vertical-align: middle;
+    cursor: pointer; 
   }
 
   .result:hover {
     color: #fff;
     text-shadow: 2px 2px 2px #3a3946;
-    background-color: #94d09e;
-    
+    background-color: #94d09e;    
   }
 
   #inp {

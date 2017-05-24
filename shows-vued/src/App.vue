@@ -26,6 +26,11 @@ export default {
     padding-right: 30px;
   }
 
+  a {
+    color: #2c3e50;
+    text-decoration: none;
+  }
+
   body, html {
     height: 100vh;
     margin: 0;
