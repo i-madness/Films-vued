@@ -34,12 +34,16 @@ export default {
   methods: {     
     onSearchChg(event) {
       let {value} = event.target
-      !!debouncedFindShow &&
+      try {
         debouncedFindShow(this.$http, value)
           .then(filteredData => {
             this.searchResults = filteredData
             this.searchResults.forEach(result => result['route'] = '/show/' + result.title)
           })
+      } catch (error) {
+        // что-то может пойти не так в момент первых нажатий клавиш по непонятной причине
+        console.log("Проигнорирована ошибка", error.name)
+      }
     }
   }
 }

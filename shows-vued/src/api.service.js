@@ -11,6 +11,13 @@ export default class ApiService {
             })
     }
 
+    static findExactShow($http, title) {
+        return $http.get(`https://i-madness.github.io/api/tvshows/all.json`)
+            .then(response => {
+                return Promise.resolve(response.data.find(data => data.title === title))
+            })
+    }
+
     static fetchShowList($http, pageNum) {
         return $http.get(`https://i-madness.github.io/api/tvshows/page_${pageNum}.json`)
     }
