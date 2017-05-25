@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <img :src="show.pic" />
+  <div class="show-wrapper">
+    <img class="show-picture" :src="show.pic" />
     <h2 class="title">{{ show.title_rus }}</h2>
     <h3 class="title-en">{{ show.title }}</h3>
-    <div class="description">{{ show.description || 'No description' }}</div>
+    <div class="description">{{ show.description || '(no description)' }}</div>
   </div>
 </template>
 
@@ -34,7 +34,18 @@ export default {
 </script>
 
 <style scoped>
+  .show-wrapper {
+    padding: 0 20%;
+  }
+
+  .show-picture {
+    float: left;
+    margin: 1em;
+    width: 300px;
+    height: 400px;
+  }
+
   .title-en {
-    color: grey
+    color: grey;
   }
 </style>
