@@ -42,7 +42,7 @@ class Customer {
             return true
         }
         if (other is Customer) {
-            return id == other?.id && firstName == other?.firstName && lastName == other?.lastName
+            return id == other.id && firstName == other.firstName && lastName == other.lastName
         }
         return false;
     }

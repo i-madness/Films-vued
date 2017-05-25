@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import java.math.BigInteger
 import java.util.concurrent.Executors
 import java.util.concurrent.ThreadLocalRandom
+import java.util.concurrent.TimeUnit
 import javax.annotation.PostConstruct
 
 /**
@@ -12,24 +13,23 @@ import javax.annotation.PostConstruct
  */
 @Service
 class DatabaseFiller(val repository: CustomerRepository) {
-    private val log = LoggerFactory.getLogger(DatabaseFiller::class.java)
+    private val LOGGER = LoggerFactory.getLogger(DatabaseFiller::class.java)
+    private val TASK_SHUTDOWN_TIMEOUT: Long = 9
     private val executor = Executors.newSingleThreadScheduledExecutor()
-    private val TASK_SHUTDOWN_TIMEOUT: Long = 3
 
     /**
      * Запускает задание для заполнения
      */
     @PostConstruct
     private fun init() {
-        //executor.scheduleAtFixedRate(FillerTask(repository), 0, 6, TimeUnit.SECONDS)
-        //executor.awaitTermination(TASK_SHUTDOWN_TIMEOUT, TimeUnit.MINUTES)
-        executor.submit(FillerTask(repository))
+        executor.scheduleAtFixedRate(FillerTask(repository), 0, 3, TimeUnit.SECONDS)
     }
 
     /**
      * Задание для наполнения БД рандомно сгенерированными данными
      */
     private class FillerTask(val repository: CustomerRepository) : Runnable {
+        val LOGGER = LoggerFactory.getLogger(FillerTask::class.java)
         val threadRandom = ThreadLocalRandom.current()
 
         fun randomizeStr(): String {
@@ -37,10 +37,9 @@ class DatabaseFiller(val repository: CustomerRepository) {
         }
 
         override fun run() {
-            for (times in 1..10) {
-                val customer = Customer(randomizeStr(), randomizeStr())
-                repository.save(customer)
-            }
+            val customer = Customer(randomizeStr(), randomizeStr())
+            repository.save(customer)
+            LOGGER.debug("Добавлено в БД: $customer")
         }
 
     }
