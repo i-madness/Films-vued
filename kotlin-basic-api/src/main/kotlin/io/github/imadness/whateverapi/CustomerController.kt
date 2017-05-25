@@ -11,6 +11,5 @@ class CustomerController(val repository: CustomerRepository) {
 	fun findAll() = repository.findAll()
 
 	@GetMapping("/{lastName}")
-	fun findByLastName(@PathVariable lastName:String)
-			= repository.findByLastName(lastName)
+	fun findByLastName(@PathVariable lastName: String) = repository.findByLastName(lastName)
 }

@@ -14,7 +14,7 @@ open class Application {
     @Bean
     open fun init(repository: CustomerRepository) = CommandLineRunner {
         // save a couple of customers
-        repository.save(Customer("Jack", "Bauer"))
+        /*repository.save(Customer("Jack", "Bauer"))
         repository.save(Customer("Chloe", "O'Brian"))
         repository.save(Customer("Kim", "Bauer"))
         repository.save(Customer("David", "Palmer"))
@@ -41,7 +41,7 @@ open class Application {
         for (bauer in repository.findByLastName("Bauer")) {
             log.info(bauer.toString())
         }
-        log.info("")
+        log.info("")*/
     }
 
     companion object {
