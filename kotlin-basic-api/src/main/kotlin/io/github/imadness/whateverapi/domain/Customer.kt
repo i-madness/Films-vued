@@ -1,4 +1,4 @@
-package io.github.imadness.whateverapi
+package io.github.imadness.whateverapi.domain
 
 import java.util.*
 import javax.persistence.Entity
