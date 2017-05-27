@@ -1,6 +1,5 @@
 package io.github.imadness.whateverapi.logic
 
-import io.github.imadness.whateverapi.domain.HugeObject
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
@@ -16,5 +15,5 @@ class CustomerController(val repository: CustomerRepository, val asyncObjectSupp
 	fun findByLastName(@PathVariable lastName: String) = repository.findByLastName(lastName)
 
     @GetMapping("/ho")
-    fun fetchVeryHugeObject(): Future<HugeObject> = asyncObjectSupplier.getHugeObjectAsync()
+    fun fetchVeryHugeObject(): Future<String> = asyncObjectSupplier.getHugeObjectAsync()
 }
