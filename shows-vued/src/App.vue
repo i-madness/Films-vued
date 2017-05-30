@@ -8,7 +8,7 @@
       </b-link>
 
       <b-nav is-nav-bar>
-        <b-nav-item to="/other">Мои сериалы</b-nav-item>
+        <b-nav-item to="/my-series">Мои сериалы</b-nav-item>
       </b-nav>   
     </b-navbar>
 
@@ -30,10 +30,6 @@
 </script>
 
 <style>
-  .main-container {
-    padding: 10px 50px;
-  }
-
   .nav-link {
     color: #fff;
   }

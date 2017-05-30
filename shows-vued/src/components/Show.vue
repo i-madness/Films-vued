@@ -1,8 +1,7 @@
 <template>
   <div class="show-main">
     <b-jumbotron :header="show.title_rus" :lead="show.title" :style="jumbortonStyle">
-      <b-btn variant="warning" :href="show.wikilink">Wikipedia</b-btn>
-      <b-btn variant="danger" :href="show.wikilink">Something</b-btn>
+      <b-btn variant="danger" :href="show.wikilink">Wikipedia</b-btn>
     </b-jumbotron>
     <div class="show-wrapper">
     </div>
@@ -35,16 +34,15 @@ export default {
 </script>
 
 <style scoped>
+  .main-container {
+    padding: 10px 0;
+  }
+
   .jumbotron {
     background-color: #000;
     background-size: contain !important;
     background-repeat: no-repeat;
     background-position-x: 50%;
-  }
-
-  .jumbotron > h1, p {
-    text-shadow: 5px 5px 5px #fff;
-    color: #000;
   }
 
   .show-wrapper {

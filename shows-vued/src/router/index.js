@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main'
 import Show from '@/components/Show'
-import Another from '@/components/Another'
+import MySeries from '@/components/MySeries'
 
 Vue.use(Router)
 
@@ -19,9 +19,9 @@ export default new Router({
       component: Show
     },
     {
-      path: '/other',
-      name: 'Another',
-      component: Another
+      path: '/my-series',
+      name: 'myseries',
+      component: MySeries
     }
   ]
 })

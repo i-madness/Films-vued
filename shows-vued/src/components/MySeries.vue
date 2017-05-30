@@ -1,5 +1,5 @@
 <template>
-    <div class="another">kek</div>
+    <div class="myseries">Content TBD...</div>
 </template>
 
 <script>

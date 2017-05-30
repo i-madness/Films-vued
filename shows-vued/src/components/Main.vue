@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-content-wrapper">
     <div class="page-header">
       <h1>Введите название сериала</h1>
     </div>
@@ -51,6 +51,9 @@ export default {
 </script>
 
 <style scoped>
+  .main-content-wrapper {
+    padding: 10px 50px;
+  }
 
   .input-wrapper {
     width: 100%;
