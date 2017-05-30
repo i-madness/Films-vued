@@ -1,17 +1,18 @@
 <template>
   <div>
-    <h1>Введите название сериала</h1>
-      <div class="input-wrapper">
-        <input id="inp" v-model="searchString" @keyup="onSearchChg"/>
-      </div>
-      <div class="results">
-        <router-link :to="res.route" tag="div" class="result" v-for="(res,index) in searchResults" 
-            :class="(index === searchResults.length - 1) ? 'res-last' : ''" :key="index">           
-            <img :src="res.pic" style="float: left">
-            {{ res.title_rus }}     
-        </router-link>
-
-      </div>
+    <div class="page-header">
+      <h1>Введите название сериала</h1>
+    </div>
+    <div class="input-wrapper">
+      <input id="inp" v-model="searchString" @keyup="onSearchChg"/>
+    </div>
+    <div class="results">
+      <router-link :to="res.route" tag="div" class="result" v-for="(res,index) in searchResults" 
+          :class="(index === searchResults.length - 1) ? 'res-last' : ''" :key="index">           
+          <img :src="res.smPic" style="float: left">
+          {{ res.title_rus }}     
+      </router-link>
+    </div>
   </div>
 </template>
 
