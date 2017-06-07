@@ -13,17 +13,18 @@
       </b-list-group-item>
     </b-list-group>
 
-    <b-carousel v-else controls :interval="10000" indicators background="#262b39" height="400px">
-      <!-- Баг BootstrapVue не позволяет делать здесь v-for в коллекции, поэтому требуются шаманства -->
-      <b-carousel-slide v-for="i in 4" 
-                        :caption="recommendedShows[i] ? recommendedShows[i].title_rus : ''" 
-                        :text="recommendedShows[i] ? recommendedShows[i].title : ''" 
-                        :img="recommendedShows[i] ? recommendedShows[i].pic : ''"
-                        :key="i"
-                        @click="() => $router.push(recommendedShows[i].route)">
-      </b-carousel-slide>
-    </b-carousel>
-
+    <div id="carousel-container" v-else>
+      <h2>Рекомендуемые сериалы</h2>
+      <b-carousel controls :interval="10000" indicators background="#262b39" height="400px">
+        <!-- Баг BootstrapVue не позволяет делать здесь v-for в коллекции, поэтому требуются шаманства -->
+        <b-carousel-slide v-for="i in 4" 
+                          :caption="recommendedShows[i] ? recommendedShows[i].title_rus : ''" 
+                          :text="recommendedShows[i] ? recommendedShows[i].title : ''" 
+                          :img="recommendedShows[i] ? recommendedShows[i].pic : ''"
+                          :key="i">
+        </b-carousel-slide>
+      </b-carousel>
+    </div>
   </div>
 </template>
 
@@ -105,7 +106,15 @@ export default {
     margin-left: 15px;
   }
 
+  #carousel-container > h2 {
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    padding-top: 15px;
+  }
+
   .carousel-item {
     padding-top: 30px;
   }
+
 </style>

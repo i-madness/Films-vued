@@ -30,6 +30,10 @@
 </script>
 
 <style>
+  body {
+    background: #262b39;
+  }
+
   .nav-link {
     color: #fff !important;
   }
