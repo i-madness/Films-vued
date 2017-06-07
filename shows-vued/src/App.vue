@@ -37,4 +37,9 @@
   .nav-link:hover {
     color: #35495e !important;
   }
+
+  .carousel-item > img.d-block.img-fluid {
+    margin: auto !important;
+    border-radius: 10px;
+  }
 </style>

@@ -2,23 +2,35 @@
   <div class="main-content-wrapper">
     <b-jumbotron class="main-head">
       <b-form-input id="inp" placeholder="Введите название сериала"
-         v-model="searchString" @keyup="onSearchChg"/>
+                    v-model="searchString" @keyup="onSearchChg"/>
     </b-jumbotron>
 
-    <div class="results">
-      <router-link :to="res.route" tag="div" class="result" v-for="(res,index) in searchResults" 
-          :class="(index === searchResults.length - 1) ? 'res-last' : ''" :key="index">           
-          <img :src="res.smPic" style="float: left">
-          {{ res.title_rus }}     
-      </router-link>
-    </div>
+    <b-list-group v-if="searchResults.length">
+      <b-list-group-item v-for="(res,index) in searchResults" 
+                         :to="res.route" :key="index" class="search-result">
+          <img :src="res.smPic" class="search-result-icon">
+          <h4 class="series-title">{{ res.title_rus }}</h4>
+      </b-list-group-item>
+    </b-list-group>
+
+    <b-carousel v-else controls :interval="10000" indicators background="#262b39" height="400px">
+      <!-- Баг BootstrapVue не позволяет делать здесь v-for в коллекции, поэтому требуются шаманства -->
+      <b-carousel-slide v-for="i in 4" 
+                        :caption="recommendedShows[i] ? recommendedShows[i].title_rus : ''" 
+                        :text="recommendedShows[i] ? recommendedShows[i].title : ''" 
+                        :img="recommendedShows[i] ? recommendedShows[i].pic : ''"
+                        :key="i"
+                        @click="() => $router.push(recommendedShows[i].route)">
+      </b-carousel-slide>
+    </b-carousel>
+
   </div>
 </template>
 
 <script>
 import VueResource from 'vue-resource'
 import ApiService from '../api.service'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 
 const debouncedFindShow = debounce(ApiService.findShow, 300)
 
@@ -27,8 +39,17 @@ export default {
   data () {
     return {
       searchString: '',
-      searchResults: []
+      searchResults: [],
+      recommendedShows: []
     }
+  },
+
+  created () {
+    ApiService.fetchRecommendedShows(this.$http)
+      .then(shows => { 
+        this.recommendedShows = shows.data
+        this.recommendedShows.forEach(show => show['route'] = '/show/' + show.title)
+      })
   },
 
   methods: {     
@@ -56,35 +77,18 @@ export default {
     margin-bottom: 0;
   }
 
-/*  .main-content-wrapper {
-    padding: 10px 50px;
-  }*/
-
-  .input-wrapper {
-    width: 100%;
-    text-align: center;
+  .search-result:first-child {
+    border-radius: 0;
   }
 
-  .results {
-    width: 100%;
+  .search-result:hover {
+    color: #273361;
+    background-color: #79d59e;
   }
 
-  .result {
-    color: #3a3946;
-    width: 100%;
-    padding: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-top: none;
-    background-color: #e8e8e8;
-    font-size: 15pt;
-    vertical-align: middle;
-    cursor: pointer; 
-  }
-
-  .result:hover {
-    color: #fff;
-    text-shadow: 2px 2px 2px #3a3946;
-    background-color: #94d09e;    
+  .search-result-icon {
+    float: left;
+    border: 1px solid #000;
   }
 
   #inp {
@@ -95,5 +99,13 @@ export default {
 
   .res-last {
     border-radius: 0 0 6px 6px;
+  }
+
+  .series-title {
+    margin-left: 15px;
+  }
+
+  .carousel-item {
+    padding-top: 30px;
   }
 </style>
