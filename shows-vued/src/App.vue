@@ -31,6 +31,10 @@
 
 <style>
   .nav-link {
-    color: #fff;
+    color: #fff !important;
+  }
+
+  .nav-link:hover {
+    color: #35495e !important;
   }
 </style>

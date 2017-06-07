@@ -1,11 +1,10 @@
 <template>
   <div class="main-content-wrapper">
-    <div class="page-header">
-      <h1>Введите название сериала</h1>
-    </div>
-    <div class="input-wrapper">
-      <input id="inp" v-model="searchString" @keyup="onSearchChg"/>
-    </div>
+    <b-jumbotron class="main-head">
+      <b-form-input id="inp" placeholder="Введите название сериала"
+         v-model="searchString" @keyup="onSearchChg"/>
+    </b-jumbotron>
+
     <div class="results">
       <router-link :to="res.route" tag="div" class="result" v-for="(res,index) in searchResults" 
           :class="(index === searchResults.length - 1) ? 'res-last' : ''" :key="index">           
@@ -51,9 +50,15 @@ export default {
 </script>
 
 <style scoped>
-  .main-content-wrapper {
-    padding: 10px 50px;
+  .main-head {
+    background: linear-gradient(to right, rgba(3,83,149,1) 0%, rgba(3,83,149,1) 5%, rgba(65,184,131,1) 100%);
+    border-radius: 0;
+    margin-bottom: 0;
   }
+
+/*  .main-content-wrapper {
+    padding: 10px 50px;
+  }*/
 
   .input-wrapper {
     width: 100%;
@@ -83,8 +88,6 @@ export default {
   }
 
   #inp {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 6px 6px 0 0;
     padding: 15pt;
     font-size: 30pt;
     width: 100%
