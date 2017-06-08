@@ -1,9 +1,11 @@
 <template>
   <div class="show-main">
-    <b-jumbotron :header="show.title_rus" :lead="show.title" :style="jumbortonStyle">
+    <b-jumbotron :header="show.title_rus" :lead="show.title" class="jumb-header">
       <b-btn variant="danger" :href="show.wikilink">Wikipedia</b-btn>
     </b-jumbotron>
+    <b-jumbotron class="jumb-pic" :style="jumbortonStyle"></b-jumbotron>
     <div class="show-wrapper">
+      
     </div>
   </div>
 </template>
@@ -38,15 +40,32 @@ export default {
     padding: 10px 0;
   }
 
-  .jumbotron {
+  .jumb-pic {
     background-color: #000;
     background-size: contain !important;
     background-repeat: no-repeat;
     background-position-x: 50%;
   }
 
+  .jumb-header {
+    background: linear-gradient(to right, rgba(3,83,149,1) 0%, rgba(3,83,149,1) 5%, rgba(65,184,131,1) 100%);
+    border-radius: 0;
+    margin-bottom: 0;
+    padding: 0 20px;
+    height: 200px;
+    color: #fff;
+    text-shadow: 3px 2px 2px #3a3946
+  }
+
+  .jumb-header > container > .btn {
+    text-shadow: none !important;
+  }
+
   .show-wrapper {
-    padding: 0 20%;
+    margin: 5px 15%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #fff;
   }
 
   .show-picture {
@@ -54,9 +73,5 @@ export default {
     margin: 1em;
     width: 300px;
     height: 400px;
-  }
-
-  .title-en {
-    color: grey;
   }
 </style>

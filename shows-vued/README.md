@@ -1,6 +1,10 @@
 # Shows VUEd
 
-Приложение, предоставляющее возможность отмечать просмотренные сериалы и делиться этим с друзьями в социальных сетях.
+Приложение, предоставляющее возможность создавать списки из просмотренных сериалов.
+
+В будущем, возможно, появится:
+- получение статистики по сериалам в виде графиков
+- возможность поделиться сериалами / статистикой с друзьями в Twitter etc.
 
 ## Build Setup
 
@@ -13,13 +17,4 @@ npm run dev
 
 # build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
 ```
