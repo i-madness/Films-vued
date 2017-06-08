@@ -3,7 +3,12 @@
     <b-jumbotron :header="show.title_rus" :lead="show.title" class="jumb-header">
       <b-btn variant="danger" :href="show.wikilink">Wikipedia</b-btn>
     </b-jumbotron>
-    <b-jumbotron class="jumb-pic" :style="jumbortonStyle"></b-jumbotron>
+    <!--b-jumbotron class="jumb-pic" :style="jumbotronStyle"></b-jumbotron-->
+    <div class="row head-img">
+      <div class="col-md-1 col-lg-4 blurred" :style="blurStyle"></div>
+      <div class="col-md-10 col-lg-4" :style="jumbotronStyle"></div>
+      <div class="col-md-1 col-lg-4 blurred" :style="blurStyle"></div>
+    </div>
     <div class="show-wrapper">
       
     </div>
@@ -20,7 +25,9 @@ export default {
   data () {
     return {
       show: Factory.stubForShow(),
-      jumbortonStyle: Factory.jumbotronShowStyle(Factory.stubForShow())
+      jumbotronStyle: Factory.jumbotronShowStyle(Factory.stubForShow()),
+      blurStyle: ''
+
     }
   },
 
@@ -28,8 +35,12 @@ export default {
     ApiService.findExactShow(this.$http, this.$route.params.name)
       .then(show => { 
         this.show = show
+        if (show.title_rus.length > 20) {
+          show.title_rus = Array.from(show.title_rus).splice(0,20).join('')
+        }
         this.show["wikilink"] = `http://ru.wikipedia.org/w/index.php?search=${show.title_rus}`
-        this.jumbortonStyle = Factory.jumbotronShowStyle(show)
+        this.blurStyle = `backgroundImage: url(${show.pic})`
+        this.jumbotronStyle = Factory.jumbotronShowStyle(show)
       })
   }
 } 
@@ -57,12 +68,16 @@ export default {
     text-shadow: 3px 2px 2px #3a3946
   }
 
+  .head-img {
+    margin-bottom: 10px;
+  }
+
   .jumb-header > container > .btn {
     text-shadow: none !important;
   }
 
   .show-wrapper {
-    margin: 5px 15%;
+    margin: 25px 15%;
     padding: 10px;
     border-radius: 10px;
     background-color: #fff;
@@ -73,5 +88,10 @@ export default {
     margin: 1em;
     width: 300px;
     height: 400px;
+  }
+
+  .blurred {
+    filter: blur(10px);
+    z-index: -1;
   }
 </style>
