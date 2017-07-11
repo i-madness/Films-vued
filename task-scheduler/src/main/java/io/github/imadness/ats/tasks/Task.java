@@ -1,6 +1,8 @@
 package io.github.imadness.ats.tasks;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 /**
@@ -9,14 +11,16 @@ import java.util.Objects;
 public class Task {
     private String name;
     private String description;
-    private Date notificationTime;
+    private Calendar notificationTime;
     // TODO contacts;
 
+    public Task() { }
 
     public Task(String name, String description, Date notificationTime) {
         this.name = name;
         this.description = description;
-        this.notificationTime = notificationTime;
+        this.notificationTime = GregorianCalendar.getInstance();
+        this.notificationTime.setTime(notificationTime);
     }
 
     public String getName() {
@@ -35,11 +39,11 @@ public class Task {
         this.description = description;
     }
 
-    public Date getNotificationTime() {
+    public Calendar getNotificationTime() {
         return notificationTime;
     }
 
-    public void setNotificationTime(Date notificationTime) {
+    public void setNotificationTime(Calendar notificationTime) {
         this.notificationTime = notificationTime;
     }
 

@@ -12,6 +12,10 @@ public class PrintUtils {
         System.out.println("\033[38m" + text);
     }
 
+    public static void printRed(String text) {
+        System.out.println("\033[31m" + text);
+    }
+
     /**
      * Вывод сообщения в консоль зелёным цветом
      * @param text текст сообщения

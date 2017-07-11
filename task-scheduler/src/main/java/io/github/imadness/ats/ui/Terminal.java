@@ -8,9 +8,9 @@ import static io.github.imadness.ats.ui.PrintUtils.*;
  * Управление консолью
  */
 public class Terminal {
-    private Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
 
-    public Terminal() {
+    public static void start() {
         displayTitle();
         displaySeparator();
         displayStartMenu();
@@ -19,21 +19,48 @@ public class Terminal {
             inputLine = input.nextLine();
             print(inputLine);
         }
+        System.exit(0);
     }
 
-    public void displayStartMenu() {
+    /**
+     * Отображает меню действий
+     */
+    public static void displayStartMenu() {
         printYellow("1. Вывести список имеющихся заданий");
         printYellow("2. Добавить задание");
         printYellow("0. Завершить работу приложения");
     }
 
-    public void displayTitle() {
+    /**
+     * Отображает название программы
+     */
+    public static void displayTitle() {
         printGreen("╔═╗╔╦╗╔═╗ || Awesome");
         printGreen("╠═╣ ║ ╚═╗ || Task");
         printGreen("╩ ╩ ╩ ╚═╝ || Scheduler");
     }
 
-    public void displaySeparator() {
-        printBlue("\033[34m>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    /**
+     * Отображает горизонтальный разделитель
+     */
+    public static void displaySeparator() {
+        printBlue(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    }
+
+    /**
+     * Отображает текст ошибки
+     * @param text текст ошибки
+     */
+    public static void displayError(String text) {
+        printRed(text);
+    }
+
+    /**
+     * Отображает текст ошибки и соответствующее ей исключение
+     * @param text текст ошибки
+     * @param throwable исключение
+     */
+    public static void displayError(String text, Throwable throwable) {
+        displayError(text + "\n" + throwable.toString());
     }
 }
