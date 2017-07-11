@@ -1,10 +1,8 @@
-package io.github.imadness.ats.console;
+package io.github.imadness.ats.ui;
 
-import java.awt.*;
-import java.net.URL;
 import java.util.Scanner;
 
-import static io.github.imadness.ats.console.PrintUtils.*;
+import static io.github.imadness.ats.ui.PrintUtils.*;
 
 /**
  * Управление консолью
@@ -13,11 +11,6 @@ public class Terminal {
     private Scanner input = new Scanner(System.in);
 
     public Terminal() {
-        try {
-            displaySystemNotification();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
         displayTitle();
         displaySeparator();
         displayStartMenu();
@@ -26,18 +19,6 @@ public class Terminal {
             inputLine = input.nextLine();
             print(inputLine);
         }
-    }
-
-    // TODO not supposed to be here, but...
-    public void displaySystemNotification() throws AWTException {
-        SystemTray tray = SystemTray.getSystemTray();
-        URL url = ClassLoader.getSystemResource("icon.png");
-        Image image = Toolkit.getDefaultToolkit().createImage(url);
-        TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
-        trayIcon.setImageAutoSize(true);
-        trayIcon.setToolTip("System tray icon demo");
-        tray.add(trayIcon);
-        trayIcon.displayMessage("Hello, World", "notification demo", TrayIcon.MessageType.WARNING);
     }
 
     public void displayStartMenu() {

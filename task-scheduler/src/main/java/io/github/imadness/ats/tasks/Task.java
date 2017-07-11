@@ -1,6 +1,6 @@
 package io.github.imadness.ats.tasks;
 
-import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -9,11 +9,11 @@ import java.util.Objects;
 public class Task {
     private String name;
     private String description;
-    private Instant notificationTime;
+    private Date notificationTime;
     // TODO contacts;
 
 
-    public Task(String name, String description, Instant notificationTime) {
+    public Task(String name, String description, Date notificationTime) {
         this.name = name;
         this.description = description;
         this.notificationTime = notificationTime;
@@ -35,12 +35,25 @@ public class Task {
         this.description = description;
     }
 
-    public Instant getNotificationTime() {
+    public Date getNotificationTime() {
         return notificationTime;
     }
 
-    public void setNotificationTime(Instant notificationTime) {
+    public void setNotificationTime(Date notificationTime) {
         this.notificationTime = notificationTime;
+    }
+
+    public String toConsoleString() {
+        return "[Задача " + name + "]\n" + description + "\n" + "Запланировано на" + notificationTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", notificationTime=" + notificationTime +
+                '}';
     }
 
     @Override
