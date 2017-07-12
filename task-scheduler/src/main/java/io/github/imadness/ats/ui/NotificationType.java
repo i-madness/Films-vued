@@ -10,12 +10,12 @@ public enum NotificationType {
     /**
      * Обычное оповещение
      */
-    STANDARD(TrayIcon.MessageType.WARNING, PrintUtils::printBlue),
+    STANDARD(TrayIcon.MessageType.WARNING, PrintUtils::print),
 
     /**
      * Важное оповещение (или просроченное)
      */
-    SEVERE(TrayIcon.MessageType.ERROR, PrintUtils::printYellow);
+    SEVERE(TrayIcon.MessageType.ERROR, PrintUtils::printRed);
 
     /**
      * Тип сообщения, выводимого в системном трее

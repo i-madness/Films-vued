@@ -1,5 +1,7 @@
 package io.github.imadness.ats.tasks;
 
+import io.github.imadness.ats.Application;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -48,7 +50,7 @@ public class Task {
     }
 
     public String toConsoleString() {
-        return "[Задача " + name + "]\n" + description + "\n" + "Запланировано на" + notificationTime;
+        return "\n[Задача " + name + "]\n" + description + "\n" + "Запланировано на " + Application.CONSOLE_DATE_FORMAT.format(notificationTime.getTime());
     }
 
     @Override

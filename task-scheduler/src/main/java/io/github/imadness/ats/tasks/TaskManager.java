@@ -8,13 +8,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Содержит буфер имеющихся заданий и методы его фиксации в файловой системе
  */
 public class TaskManager {
+    /**
+     * Маппер объектов Jackson
+     */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    /**
+     * Файл журнала задач
+     */
     private static final File TASK_JOURNAL_FILE = new File("tasks.json");
+
+    /**
+     * Тип, используемый Jackson при парсинге json-файла
+     */
     private static final CollectionType TASK_BUFFER_TYPE = OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, Task.class);
 
     /**
@@ -22,6 +34,9 @@ public class TaskManager {
      */
     private List<Task> taskBuffer = new ArrayList<>();
 
+    /**
+     * Конструктор. На этом этапе создаётся файл журнала задач, если он не существует
+     */
     public TaskManager() {
         if (!TASK_JOURNAL_FILE.exists()) {
             try {
@@ -35,10 +50,8 @@ public class TaskManager {
     /**
      * Загружает буфер заданий из файла
      */
-    @SuppressWarnings("unchecked")
     public void loadTasks() throws IOException {
-        taskBuffer =  OBJECT_MAPPER.readValue(TASK_JOURNAL_FILE, TASK_BUFFER_TYPE);
-        System.out.println(taskBuffer);
+        taskBuffer = OBJECT_MAPPER.readValue(TASK_JOURNAL_FILE, TASK_BUFFER_TYPE);
     }
 
     /**
@@ -80,7 +93,18 @@ public class TaskManager {
         return null;
     }
 
-    public List<Task> getTaskBuffer() {
-        return taskBuffer;
+    /**
+     * Очистка буфера задач
+     */
+    public void clearBuffer() {
+        taskBuffer.clear();
+    }
+
+    /**
+     * Возвращает Stream для коллекции задач
+     * @return объект {@link Stream}
+     */
+    public Stream<Task> taskStream() {
+        return taskBuffer.stream();
     }
 }

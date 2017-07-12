@@ -12,30 +12,39 @@ import java.net.URL;
  * Содержит различные методы для вывода оповещений
  */
 public class NotificationManager {
-
+    /**
+     * Трей системы, в котором выводятся оповещения
+     */
     private final SystemTray tray = SystemTray.getSystemTray();
 
-    private final TrayIcon trayIcon;
+    /**
+     * Иконка, отображаемая в трее
+     */
+    private TrayIcon trayIcon;
 
+    /**
+     * Конструктор. На этом этапе происходит нициализация trayIcon и обработчиков событий
+     */
     public NotificationManager() {
-        URL url = ClassLoader.getSystemResource("icon.png");
-        Image image = Toolkit.getDefaultToolkit().createImage(url);
-        trayIcon = new TrayIcon(image, "Tray Demo");
-        trayIcon.setImageAutoSize(true);
-        try {
-            tray.add(trayIcon);
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-        trayIcon.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 1) {
-                    JOptionPane.showConfirmDialog(null, "Wut?");
-                }
+        if (tray.isSupported()) {
+            URL url = ClassLoader.getSystemResource("icon.png");
+            Image image = Toolkit.getDefaultToolkit().createImage(url);
+            trayIcon = new TrayIcon(image, "Tray Demo");
+            trayIcon.setImageAutoSize(true);
+            try {
+                tray.add(trayIcon);
+            } catch (AWTException e) {
+                e.printStackTrace();
             }
-        });
+            trayIcon.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 1) {
+                        JOptionPane.showConfirmDialog(null, "Wut?");
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -43,7 +52,9 @@ public class NotificationManager {
      * @param task задача
      */
     public void raiseSystemNotification(Task task, NotificationType notificationType) throws AWTException {
-        trayIcon.displayMessage(task.getName(), task.getDescription(), notificationType.getTrayMsgType());
+        if (tray.isSupported()) {
+            trayIcon.displayMessage(task.getName(), task.getDescription(), notificationType.getTrayMsgType());
+        }
     }
 
     /**
@@ -52,5 +63,6 @@ public class NotificationManager {
      */
     public void raiseConsoleNotification(Task task, NotificationType notificationType) {
         notificationType.getConsolePrintMethod().accept(task.toConsoleString());
+        Terminal.displaySeparator();
     }
 }

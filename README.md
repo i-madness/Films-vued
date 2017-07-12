@@ -3,4 +3,5 @@
 
 ## Список проектов:
 - **Shows VUEd** - проект для изучения frontend-фреймворка Vue.js. Изначальная задумка - сделать мини-сервис, на котором можно будет отмечать просмотренные сериалы и делиться этим с друзьями (Twitter и прочие соцсети). _[**Frozen**]_
-- **Kotlin Whatever API** - проект на базе Spring Boot для изучения Kotlin на примере создания тривиального CRUD/REST API.
+- **Kotlin Whatever API** - проект на базе Spring Boot для изучения Kotlin на примере создания тривиального CRUD/REST API. _[**Done**]_
+- **Awesome Task Scheduler** - тривиальный планировщик задач (Java Core). _[**In progress**]_
