@@ -62,7 +62,7 @@ public class NotificationManager {
      * @param task
      */
     public void raiseConsoleNotification(Task task, NotificationType notificationType) {
-        notificationType.getConsolePrintMethod().accept(task.toConsoleString());
+        notificationType.getConsolePrintMethod().accept(task);
         Terminal.displaySeparator();
     }
 }

@@ -1,5 +1,7 @@
 package io.github.imadness.ats.ui;
 
+import io.github.imadness.ats.tasks.Task;
+
 import java.awt.*;
 import java.util.function.Consumer;
 
@@ -10,12 +12,12 @@ public enum NotificationType {
     /**
      * Обычное оповещение
      */
-    STANDARD(TrayIcon.MessageType.WARNING, PrintUtils::print),
+    STANDARD(TrayIcon.MessageType.WARNING, Terminal::displayTask),
 
     /**
      * Важное оповещение (или просроченное)
      */
-    SEVERE(TrayIcon.MessageType.ERROR, PrintUtils::printRed);
+    SEVERE(TrayIcon.MessageType.ERROR, Terminal::displayTaskSevere);
 
     /**
      * Тип сообщения, выводимого в системном трее
@@ -25,9 +27,9 @@ public enum NotificationType {
     /**
      * Функция вывода оповещения в консоль
      */
-    private Consumer<String> consolePrintMethod;
+    private Consumer<Task> consolePrintMethod;
 
-    private NotificationType(TrayIcon.MessageType trayMsgType, Consumer<String> consolePrintMethod) {
+    private NotificationType(TrayIcon.MessageType trayMsgType, Consumer<Task> consolePrintMethod) {
         this.trayMsgType = trayMsgType;
         this.consolePrintMethod = consolePrintMethod;
     }
@@ -36,7 +38,7 @@ public enum NotificationType {
         return this.trayMsgType;
     }
 
-    public Consumer<String> getConsolePrintMethod() {
+    public Consumer<Task> getConsolePrintMethod() {
         return this.consolePrintMethod;
     }
 }

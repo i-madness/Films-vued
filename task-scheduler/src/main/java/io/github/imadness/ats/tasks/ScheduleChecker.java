@@ -22,25 +22,18 @@ public class ScheduleChecker {
     private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
     /**
-     * Сервис для работы с задачами
+     * Показатель активности Executor'а
      */
-    private TaskManager taskManager;
-
-    private NotificationManager notificationManager;
+    private Boolean isActive = false;
 
     /**
      * Начинает проверку задач в расписании
      */
     public void startScheduling() {
-        executor.scheduleAtFixedRate(new CheckingTask(), 0L, 30L, TimeUnit.SECONDS);
-    }
-
-    public void setTaskManager(TaskManager taskManager) {
-        this.taskManager = taskManager;
-    }
-
-    public void setNotificationManager(NotificationManager notificationManager) {
-        this.notificationManager = notificationManager;
+        if (!isActive) {
+            executor.scheduleAtFixedRate(new CheckingTask(), 0L, 30L, TimeUnit.SECONDS);
+            isActive = true;
+        }
     }
 
     /**
@@ -50,12 +43,11 @@ public class ScheduleChecker {
     private class CheckingTask implements Runnable {
         @Override
         public void run() {
-            if (taskManager == null ) {
-                throw new NullPointerException("");
-            }
+            TaskManager taskManager = Application.getTaskManager();
+            NotificationManager notificationManager = Application.getNotificationManager();
             Calendar now = GregorianCalendar.getInstance();
             nullifyMillisAndSeconds(now);
-            Application.getTaskManager().taskStream()
+            taskManager.getTaskBuffer().stream()
                 .filter(task -> {
                     Calendar taskTime = (Calendar) task.getNotificationTime().clone();
                     nullifyMillisAndSeconds(taskTime);
@@ -63,8 +55,8 @@ public class ScheduleChecker {
                 })
                 .forEach(task -> {
                     try {
-                        Application.getNotificationManager().raiseSystemNotification(task, NotificationType.STANDARD);
-                        Application.getNotificationManager().raiseConsoleNotification(task, NotificationType.STANDARD);
+                        notificationManager.raiseSystemNotification(task, NotificationType.STANDARD);
+                        notificationManager.raiseConsoleNotification(task, NotificationType.STANDARD);
                         taskManager.removeTask(task);
                     } catch (AWTException e) {
                         Terminal.displayError("Не удалось вывести оповещение", e);

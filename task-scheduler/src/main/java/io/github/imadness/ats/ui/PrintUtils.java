@@ -12,6 +12,17 @@ public class PrintUtils {
         System.out.println("\033[38m" + text);
     }
 
+    /**
+     * Выводит в консоль индикатор пользовательского ввода (означает, что пользователь может вводить команды)
+     */
+    public static void printInputIndicator() {
+        System.out.print("\033[38m> ");
+    }
+
+    /**
+     * Выводит сообщения в консоль красным цветом
+     * @param text текст сообщения
+     */
     public static void printRed(String text) {
         System.out.println("\033[31m" + text);
     }

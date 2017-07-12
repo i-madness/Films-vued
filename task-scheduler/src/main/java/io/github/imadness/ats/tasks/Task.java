@@ -1,7 +1,5 @@
 package io.github.imadness.ats.tasks;
 
-import io.github.imadness.ats.Application;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -47,10 +45,6 @@ public class Task {
 
     public void setNotificationTime(Calendar notificationTime) {
         this.notificationTime = notificationTime;
-    }
-
-    public String toConsoleString() {
-        return "\n[Задача " + name + "]\n" + description + "\n" + "Запланировано на " + Application.CONSOLE_DATE_FORMAT.format(notificationTime.getTime());
     }
 
     @Override

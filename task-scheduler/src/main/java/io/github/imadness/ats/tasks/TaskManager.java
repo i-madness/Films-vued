@@ -104,7 +104,7 @@ public class TaskManager {
      * Возвращает Stream для коллекции задач
      * @return объект {@link Stream}
      */
-    public Stream<Task> taskStream() {
-        return taskBuffer.stream();
+    public List<Task> getTaskBuffer() {
+        return taskBuffer;
     }
 }
