@@ -31,7 +31,7 @@ public class ScheduleChecker {
      */
     public void startScheduling() {
         if (!isActive) {
-            executor.scheduleAtFixedRate(new CheckingTask(), 0L, 30L, TimeUnit.SECONDS);
+            executor.scheduleAtFixedRate(new CheckingTask(), 0L, 20L, TimeUnit.SECONDS);
             isActive = true;
         }
     }

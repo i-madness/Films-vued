@@ -6,6 +6,7 @@ import io.github.imadness.ats.tasks.TaskManager;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -16,10 +17,19 @@ import static io.github.imadness.ats.ui.PrintUtils.*;
  * Управление консолью
  */
 public class Terminal {
+    /**
+     * Основной формат, используемый для парсинга и вывода даты в консоли приложения
+     */
+    public static final SimpleDateFormat CONSOLE_DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+    /**
+     * Сканер пользовательского ввода
+     */
     private static Scanner input = new Scanner(System.in);
 
     /**
-     * Начинает взаимодействие программы с пользователем через консоль
+     * Начинает взаимодействие программы с пользователем через консоль. Пользователю предоставляются определённые варианты
+     * действий, которые можно выбирать с помощью соответствующих команд.
      */
     public static void start() {
         TaskManager taskManager = Application.getTaskManager();
@@ -32,9 +42,15 @@ public class Terminal {
             switch (inputLine) {
                 case "1": {
                     List<Task> buffer = taskManager.getTaskBuffer();
+                    if (buffer.isEmpty()) {
+                        printBlue("Журнал задач пуст");
+                        displayStartMenu();
+                        break;
+                    }
                     for (int i = 0; i < buffer.size(); i++) {
                         displayTask(buffer.get(i), i + 1);
                     }
+                    displayStartMenu();
                     break;
                 }
                 case "2": {
@@ -48,7 +64,7 @@ public class Terminal {
                     printInputIndicator();
                     Date notificationTime = null;
                     try {
-                        notificationTime = Application.CONSOLE_DATE_FORMAT.parse(input.nextLine());
+                        notificationTime = CONSOLE_DATE_FORMAT.parse(input.nextLine());
                     } catch (ParseException e) {
                         displayError("Ошибка: введённое время не соответствует заданному формату", e);
                         displayStartMenu();
@@ -62,6 +78,7 @@ public class Terminal {
                     } catch (IOException e) {
                         displayError("Не удалось сохранить список задач", e);
                     }
+                    displayStartMenu();
                     break;
                 }
                 case "3": {
@@ -90,6 +107,7 @@ public class Terminal {
                             e.printStackTrace();
                         }
                     }
+                    displayStartMenu();
                     break;
                 }
                 case "0": System.exit(0);
@@ -102,7 +120,7 @@ public class Terminal {
      * Отображает меню действий
      */
     public static void displayStartMenu() {
-        printYellow("1. Вывести список имеющихся заданий");
+        printYellow("1. Вывести журнал имеющихся заданий");
         printYellow("2. Добавить задание");
         printYellow("3. Удалить задание");
         printYellow("0. Завершить работу приложения");
@@ -116,7 +134,7 @@ public class Terminal {
     public static void displayTask(Task task) {
         printGreen(task.getName());
         print(task.getDescription());
-        print("Запланировано на " + Application.CONSOLE_DATE_FORMAT.format(task.getNotificationTime().getTime()));
+        print("Запланировано на " + CONSOLE_DATE_FORMAT.format(task.getNotificationTime().getTime()));
     }
 
     /**
@@ -127,7 +145,7 @@ public class Terminal {
     public static void displayTask(Task task, int number) {
         printGreen(number + ". " + task.getName());
         print(task.getDescription());
-        print("Запланировано на " + Application.CONSOLE_DATE_FORMAT.format(task.getNotificationTime().getTime()));
+        print("Запланировано на " + CONSOLE_DATE_FORMAT.format(task.getNotificationTime().getTime()));
         displaySmallSeparator();
     }
 
@@ -138,7 +156,7 @@ public class Terminal {
     public static void displayTaskSevere(Task task) {
         printRed(task.getName());
         print(task.getDescription());
-        printRed("Запланировано на " + Application.CONSOLE_DATE_FORMAT.format(task.getNotificationTime().getTime()));
+        printRed("Запланировано на " + CONSOLE_DATE_FORMAT.format(task.getNotificationTime().getTime()));
         displaySmallSeparator();
     }
 

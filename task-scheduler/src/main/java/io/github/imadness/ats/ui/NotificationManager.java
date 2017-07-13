@@ -29,7 +29,7 @@ public class NotificationManager {
         if (tray.isSupported()) {
             URL url = ClassLoader.getSystemResource("icon.png");
             Image image = Toolkit.getDefaultToolkit().createImage(url);
-            trayIcon = new TrayIcon(image, "Tray Demo");
+            trayIcon = new TrayIcon(image, "Awesome Task Scheduler");
             trayIcon.setImageAutoSize(true);
             try {
                 tray.add(trayIcon);
@@ -39,8 +39,9 @@ public class NotificationManager {
             trayIcon.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    // TODO: заготовка для диалогового окна, выводимого
                     if (e.getClickCount() == 1) {
-                        JOptionPane.showConfirmDialog(null, "Wut?");
+                        JOptionPane.showConfirmDialog(null, "");
                     }
                 }
             });

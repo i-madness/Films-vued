@@ -6,7 +6,6 @@ import io.github.imadness.ats.ui.NotificationManager;
 import io.github.imadness.ats.ui.Terminal;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 /**
  * Точка входа в приложение
@@ -16,13 +15,24 @@ public class Application {
     private static final TaskManager TASK_MANAGER = new TaskManager();
     private static final NotificationManager NOTIFICATION_MANAGER = new NotificationManager();
     private static final ScheduleChecker SCHEDULE_CHECKER = new ScheduleChecker();
-    // ----- Other constants -----
-    public static final SimpleDateFormat CONSOLE_DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
-    public static void main(String[] args) throws IOException {
-        TASK_MANAGER.loadTasks();
+    private static Boolean coloredMode = true;
+
+    public static void main(String[] args) {
+        if (args.length > 0 && args[0].equals("nocolors")) {
+            coloredMode = false;
+        }
+        try {
+            TASK_MANAGER.loadTasks();
+        } catch (IOException e) {
+            Terminal.displayError("Файл журнала задач пуст");
+        }
         SCHEDULE_CHECKER.startScheduling();
         Terminal.start();
+    }
+
+    public static Boolean isColoredMode() {
+        return coloredMode;
     }
 
     public static TaskManager getTaskManager() {

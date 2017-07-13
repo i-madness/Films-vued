@@ -30,7 +30,7 @@ public class TaskManager {
     private static final CollectionType TASK_BUFFER_TYPE = OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, Task.class);
 
     /**
-     * Коллекция, в которой хранятся все задания в системе
+     * Журнал задач. Коллекция, в которой хранятся все задания в системе
      */
     private List<Task> taskBuffer = new ArrayList<>();
 
