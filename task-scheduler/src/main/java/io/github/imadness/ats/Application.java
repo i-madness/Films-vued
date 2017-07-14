@@ -17,7 +17,8 @@ public class Application {
     private static final ScheduleChecker SCHEDULE_CHECKER = new ScheduleChecker();
 
     /**
-     * Флаг, определяющий наличие цветного вывода текста в консоли
+     * Флаг, определяющий наличие цветного вывода текста в консоли. По умолчанию - true,
+     * может быть изменено аргументом программы "nocolors"
      */
     private static Boolean coloredMode = true;
 

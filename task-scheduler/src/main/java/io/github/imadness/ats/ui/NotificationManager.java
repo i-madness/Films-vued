@@ -48,7 +48,7 @@ public class NotificationManager {
 
     /**
      * Отображает оповещение для задачи в консоли
-     * @param task
+     * @param task задача
      */
     public void raiseConsoleNotification(Task task, NotificationType notificationType) {
         notificationType.getConsolePrintMethod().accept(task);

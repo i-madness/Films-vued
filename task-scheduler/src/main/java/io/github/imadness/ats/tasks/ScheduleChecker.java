@@ -6,8 +6,11 @@ import io.github.imadness.ats.ui.NotificationType;
 import io.github.imadness.ats.ui.Terminal;
 
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -26,13 +29,53 @@ public class ScheduleChecker {
      */
     private Boolean isActive = false;
 
+    List<Task> tasksToRemove = new ArrayList<>();
+
+    private NotificationManager notificationManager;
+    private TaskManager taskManager;
+
     /**
      * Начинает проверку задач в расписании
      */
     public void startScheduling() {
+        Calendar now = GregorianCalendar.getInstance();
+        notificationManager = Application.getNotificationManager();
+        taskManager = Application.getTaskManager();
+        taskManager.getTaskBuffer().stream()
+            .filter(task -> now.getTimeInMillis() > task.getNotificationTime().getTimeInMillis())
+            .forEach(task -> {
+                try {
+                    notificationManager.raiseSystemNotification(task, NotificationType.SEVERE);
+                    notificationManager.raiseConsoleNotification(task, NotificationType.SEVERE);
+                    tasksToRemove.add(task);
+                } catch (AWTException e) {
+                    Terminal.displayError("Не удалось вывести оповещение", e);
+                }
+            });
+        removeMarkedTasks();
         if (!isActive) {
             executor.scheduleAtFixedRate(new CheckingTask(), 0L, 20L, TimeUnit.SECONDS);
             isActive = true;
+        }
+    }
+
+    /**
+     * Обнуляет миллесекунды и секунды в календаре
+     * @param calendar инстанс {@link Calendar}
+     */
+    private void nullifyMillisAndSeconds(Calendar calendar) {
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+    }
+
+    /**
+     * Удаляет все задания, отмеченные на удаление
+     */
+    private void removeMarkedTasks() {
+        try {
+            taskManager.removeMultipleTasks(tasksToRemove);
+        } catch (IOException e) {
+            Terminal.displayError("Не удалось удалить задания, отмеченные для удаления", e);
         }
     }
 
@@ -43,8 +86,6 @@ public class ScheduleChecker {
     private class CheckingTask implements Runnable {
         @Override
         public void run() {
-            TaskManager taskManager = Application.getTaskManager();
-            NotificationManager notificationManager = Application.getNotificationManager();
             Calendar now = GregorianCalendar.getInstance();
             nullifyMillisAndSeconds(now);
             taskManager.getTaskBuffer().stream()
@@ -57,20 +98,12 @@ public class ScheduleChecker {
                     try {
                         notificationManager.raiseSystemNotification(task, NotificationType.STANDARD);
                         notificationManager.raiseConsoleNotification(task, NotificationType.STANDARD);
-                        taskManager.removeTask(task);
+                        tasksToRemove.add(task);
                     } catch (AWTException e) {
                         Terminal.displayError("Не удалось вывести оповещение", e);
                     }
                 });
-        }
-
-        /**
-         * Обнуляет миллесекунды и секунды в календаре
-         * @param calendar инстанс {@link Calendar}
-         */
-        private void nullifyMillisAndSeconds(Calendar calendar) {
-            calendar.set(Calendar.MILLISECOND, 0);
-            calendar.set(Calendar.SECOND, 0);
+            removeMarkedTasks();
         }
     }
 

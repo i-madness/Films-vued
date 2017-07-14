@@ -70,10 +70,8 @@ public class Terminal {
                         displayStartMenu();
                         break;
                     }
-
-                    taskManager.addTask(new Task(title, description,notificationTime));
                     try {
-                        taskManager.persistTasks();
+                        taskManager.addTask(new Task(title, description,notificationTime));
                         printGreen("Задача [" + title + "] успешно добавлена");
                     } catch (IOException e) {
                         displayError("Не удалось сохранить список задач", e);
@@ -99,9 +97,8 @@ public class Terminal {
                         }
                         taskNumber -= 1;
                         Task taskToRemove = buffer.get(taskNumber);
-                        taskManager.removeTask(taskToRemove);
                         try {
-                            taskManager.persistTasks();
+                            taskManager.removeTask(taskToRemove);
                             printRed("Задача [" + taskToRemove.getName() + "] успешно удалена");
                         } catch (IOException e) {
                             e.printStackTrace();

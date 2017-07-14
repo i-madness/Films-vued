@@ -7,6 +7,7 @@ import io.github.imadness.ats.ui.Terminal;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -58,7 +59,7 @@ public class TaskManager {
      * Сохраняет буфер заданий в файл
      * @throws IOException
      */
-    public void persistTasks() throws IOException {
+    private void persistTasks() throws IOException {
         OBJECT_MAPPER.writeValue(TASK_JOURNAL_FILE, taskBuffer);
     }
 
@@ -66,16 +67,27 @@ public class TaskManager {
      * Добавляет задачу в буфер
      * @param task задача для добавления
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws IOException {
         taskBuffer.add(task);
+        persistTasks();
     }
 
     /**
      * Удаляет задачу из буфера
      * @param task задача для удаления
      */
-    public void removeTask(Task task) {
+    public void removeTask(Task task) throws IOException {
         taskBuffer.remove(task);
+        persistTasks();
+    }
+
+    /**
+     * Удаление множества задач из буфера
+     * @param tasks коллекция, содержащая задачи для удаления
+     */
+    public void removeMultipleTasks(Collection<Task> tasks) throws IOException {
+        tasks.forEach(taskBuffer::remove);
+        persistTasks();
     }
 
     /**
