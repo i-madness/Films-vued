@@ -2,10 +2,7 @@ package io.github.imadness.ats.ui;
 
 import io.github.imadness.ats.tasks.Task;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.net.URL;
 
 /**
@@ -34,17 +31,8 @@ public class NotificationManager {
             try {
                 tray.add(trayIcon);
             } catch (AWTException e) {
-                e.printStackTrace();
+                Terminal.displayError("Не удалось добавить иконку приложения в системный трей", e);
             }
-            trayIcon.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    // TODO: заготовка для диалогового окна, выводимого
-                    if (e.getClickCount() == 1) {
-                        JOptionPane.showConfirmDialog(null, "");
-                    }
-                }
-            });
         }
     }
 

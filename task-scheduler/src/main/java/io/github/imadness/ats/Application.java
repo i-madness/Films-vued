@@ -16,6 +16,9 @@ public class Application {
     private static final NotificationManager NOTIFICATION_MANAGER = new NotificationManager();
     private static final ScheduleChecker SCHEDULE_CHECKER = new ScheduleChecker();
 
+    /**
+     * Флаг, определяющий наличие цветного вывода текста в консоли
+     */
     private static Boolean coloredMode = true;
 
     public static void main(String[] args) {

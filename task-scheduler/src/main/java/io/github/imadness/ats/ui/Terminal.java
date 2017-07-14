@@ -40,7 +40,7 @@ public class Terminal {
             printInputIndicator();
             inputLine = input.nextLine();
             switch (inputLine) {
-                case "1": {
+                case "1": { // Вывод журнала задач
                     List<Task> buffer = taskManager.getTaskBuffer();
                     if (buffer.isEmpty()) {
                         printBlue("Журнал задач пуст");
@@ -53,7 +53,7 @@ public class Terminal {
                     displayStartMenu();
                     break;
                 }
-                case "2": {
+                case "2": { // Добавление новой задачи
                     printBlue("Введите название задачи:");
                     printInputIndicator();
                     String title = input.nextLine();
@@ -81,7 +81,7 @@ public class Terminal {
                     displayStartMenu();
                     break;
                 }
-                case "3": {
+                case "3": { // Удаление задачи из журнала
                     List<Task> buffer = taskManager.getTaskBuffer();
                     if (buffer.isEmpty()) {
                         printBlue("Журнал задач пуст");
@@ -110,7 +110,9 @@ public class Terminal {
                     displayStartMenu();
                     break;
                 }
-                case "0": System.exit(0);
+                case "0": { // Завершение работы приложения
+                    System.exit(0);
+                }
             }
         }
 

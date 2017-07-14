@@ -9,10 +9,20 @@ import java.util.Objects;
  * Запланированная задача
  */
 public class Task {
+    /**
+     * Имя задачи
+     */
     private String name;
+
+    /**
+     * Описание
+     */
     private String description;
+
+    /**
+     * Метка времени, время вывода оповещения
+     */
     private Calendar notificationTime;
-    // TODO contacts;
 
     public Task() { }
 
@@ -49,11 +59,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", notificationTime=" + notificationTime +
-                '}';
+        return "Task{" + "name='" + name + '\'' +", description='" + description + '\'' +", notificationTime=" + notificationTime + '}';
     }
 
     @Override
