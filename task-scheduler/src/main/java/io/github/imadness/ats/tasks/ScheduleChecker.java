@@ -29,7 +29,10 @@ public class ScheduleChecker {
      */
     private Boolean isActive = false;
 
-    List<Task> tasksToRemove = new ArrayList<>();
+    /**
+     * Коллекция заданий, которые необходимо удалить
+     */
+    private List<Task> tasksToRemove = new ArrayList<>();
 
     private NotificationManager notificationManager;
     private TaskManager taskManager;
