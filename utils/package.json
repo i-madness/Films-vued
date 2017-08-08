@@ -1,0 +1,22 @@
+{
+  "name": "utils",
+  "version": "1.0.0",
+  "description": "The self-written implementation of quite popular utils (like lodash etc.)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i-madness/education.git"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "Valery Romanov (i-madness)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/i-madness/education/issues"
+  },
+  "homepage": "https://github.com/i-madness/education#readme"
+}
