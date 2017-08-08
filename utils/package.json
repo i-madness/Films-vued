@@ -4,7 +4,7 @@
   "description": "The self-written implementation of quite popular utils (like lodash etc.)",
   "main": "index.js",
   "scripts": {
-    "test": "jest ."
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/i-madness/education/issues"
   },
-  "homepage": "https://github.com/i-madness/education#readme"
+  "homepage": "https://github.com/i-madness/education#readme",
+  "devDependencies": {
+    "jest": "^20.0.4"
+  }
 }
