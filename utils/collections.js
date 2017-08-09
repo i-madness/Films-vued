@@ -61,9 +61,87 @@ const reverse = array => {
   return reverseOrder
 }
 
+/**
+ * Проверяет, является ли строка палиндромом
+ * @param {String} string 
+ */
+const isPalindrome = string => {
+  if (!string) {
+    return false
+  }
+  let reversed = reverse(string)
+  return string === reversed
+}
+
+/**
+ * На основе входного массива чисел 1...N возвращает число, отсутствующее в последовательности
+ * @param {Array<Number>} array 
+ */
+const missing = array => {
+  let length = array.length
+  for (let i = 0; i < length; i++) {
+    let prev = array[i - 1],
+      current = array[i - 1]
+    if (prev && current - prev !== 1) {
+
+    }
+  }
+}
+
+/**
+ * 
+ * @param {String} string 
+ */
+const isBalanced = string => {
+  let openCount = 0,
+    closeCount = 0,
+    length = string.length
+  for (let i = 0; i < length; i++) {
+    if (string[i] === '{') {
+      openCount++
+    } else if (string[i] === '}') {
+      closeCount++
+    }
+  }
+  return openCount === closeCount
+}
+
+/**
+ * Возвращает массив из уникальных, не повторяющихся элементов исходного массива
+ * @param {Array} array 
+ */
+const uniq = array => Array.from(new Set(array))
+
+/**
+ * Возвращает пересечение двух массивов
+ * @param {Array} arr1
+ * @param {Array} arr2
+ */
+const intersect = (arr1, arr2) => {
+  let len1 = arr1.length,
+    len2 = arr2.length,
+    intersLen = 0,
+    intersection = []
+  for (let i = 0; i < len1; i++) {
+    let j = 0, k = 0
+    while (arr2[j] !== arr1[i] && j < len2)
+      j++
+    while (intersection[k] !== arr1[i] && k < intersLen)
+      k++
+    if (j != len2 && k == intersLen) {
+      intersection[intersLen++] = arr1[i]
+    }
+  }
+  return intersection;
+}
+
 module.exports = {
   filter,
   reduce,
   isSorted,
-  reverse
+  reverse,
+  isPalindrome,
+  isBalanced,
+  uniq,
+  intersect
 }
