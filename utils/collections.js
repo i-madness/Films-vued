@@ -14,20 +14,6 @@ const filter = (array, predicate) => {
 }
 
 /**
- * Сводит массив к определённому значению, применяя заданную функцию
- * к элементам массива проходом от начала и до конца
- * @param {Array} array 
- * @param {Function} callback 
- * @param {any} initial 
- */
-const reduce = (array, callback, initial) => {
-  for (let el of array) {
-    initial = callback(initial, el)
-  }
-  return initial
-}
-
-/**
  * Проверяет, отсортирован ли числовой массив
  * @param {Array<Number>} array 
  */
@@ -89,24 +75,6 @@ const missing = array => {
 }
 
 /**
- * 
- * @param {String} string 
- */
-const isBalanced = string => {
-  let openCount = 0,
-    closeCount = 0,
-    length = string.length
-  for (let i = 0; i < length; i++) {
-    if (string[i] === '{') {
-      openCount++
-    } else if (string[i] === '}') {
-      closeCount++
-    }
-  }
-  return openCount === closeCount
-}
-
-/**
  * Возвращает массив из уникальных, не повторяющихся элементов исходного массива
  * @param {Array} array 
  */
@@ -141,7 +109,6 @@ module.exports = {
   isSorted,
   reverse,
   isPalindrome,
-  isBalanced,
   uniq,
   intersect
 }
