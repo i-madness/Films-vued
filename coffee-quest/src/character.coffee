@@ -1,15 +1,16 @@
-character = (name = 'Weary traveller') ->
+Bag = () -> 
+  size: 100
+  items: [ 'coffee' ]
+
+Character = (name = 'Weary traveller') =>
   name: name
   lvl: 1
-  bag: bag()
-
-bag = () -> 
-  size: 100
-  items: []
-  additem: (item) => 
-    if this.items.length < this.size
-      this.items.push(item)
+  bag: Bag()
+  additem: (item) -> 
+    if @bag.items.length < @bag.size
+      @bag.items.push item
       return true
-    else return false
+    else
+      return false
 
-module.exports = character
+module.exports = Character

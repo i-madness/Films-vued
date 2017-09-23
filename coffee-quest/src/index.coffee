@@ -1,4 +1,10 @@
 require 'coffeescript/register'
-character = require('./character')()
+require './console'
+charFactory = require './character'
+character = charFactory()
 
-console.log(character.name, character.bag)
+
+character.additem "pechenko"
+character.additem "chocolate"
+
+console.log character.name, character.bag
