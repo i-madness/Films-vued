@@ -1,10 +1,9 @@
 require 'coffeescript/register'
-require './console'
+io = require './console'
 charFactory = require './character'
 character = charFactory()
-
 
 character.additem "pechenko"
 character.additem "chocolate"
 
-console.log character.name, character.bag
+io.startGame()
